@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: autocontentfactory-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn src.api_server:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: API_KEY
+        generateValue: true
+    healthCheckPath: /health
+    autoDeploy: true
+    domains:
+      - autocontentfactory.onrender.com
